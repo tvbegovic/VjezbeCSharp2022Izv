@@ -19,8 +19,37 @@ namespace Igre_Klase
 
         private void btnUnesi_Click(object sender, EventArgs e)
         {
-            var igra = new Igra();
-            igra.Naziv = "";
+            try
+            {
+                var unos = txtCijena.Text;
+                var ok = double.TryParse(unos, out double cijena);
+                if (!ok)
+                {
+                    MessageBox.Show("Pogrešan format cijene");
+                    return;
+                }
+                unos = txtDatum.Text;
+                ok = DateTime.TryParse(unos, out DateTime datum);
+                if (!ok)
+                {
+                    MessageBox.Show("Pogrešan format datuma");
+                    return;
+                }
+                var igra = new Igra();
+                igra.Naziv = txtNaziv.Text;
+                igra.Opis = txtOpis.Text;
+                igra.Cijena = cijena;
+                igra.Izdavac = txtIzdavac.Text;
+                igra.DatumIzdavanja = datum;
+                igra.Vrsta = txtVrsta.Text;
+
+                MessageBox.Show("Podaci su uspješno uneseni");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
     }
 }
